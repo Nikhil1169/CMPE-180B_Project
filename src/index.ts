@@ -95,10 +95,10 @@ app.post("/underpeforming-items", async (req, res) => {
 });
   
   
-app.post("/monthly-product-sales", async (req, res) => {
+app.post("/quarterly-product-sales", async (req, res) => {
     try {
 
-      const sqlFilePath = path.join(process.cwd(), "queries","monthly_product_sales.sql");
+      const sqlFilePath = path.join(process.cwd(), "queries","quarterly_product_sales.sql");
       const query = fs.readFileSync(sqlFilePath, "utf8");
   
       const [rows] = await bigquery.query({
@@ -115,4 +115,65 @@ app.post("/monthly-product-sales", async (req, res) => {
     }
 });
 
+app.post("/customer-exp", async (req, res) => {
+  try {
+
+    const sqlFilePath = path.join(process.cwd(), "queries","customer_experience.sql");
+    const query = fs.readFileSync(sqlFilePath, "utf8");
+
+    const [rows] = await bigquery.query({
+      query,
+      location: "US"
+    });
+
+    res.json({ data: rows });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      message: "Error while querying monthly product sales"
+    });
+  }
+});
+
+app.post("/top-customers", async (req, res) => {
+  try {
+
+    const sqlFilePath = path.join(process.cwd(), "queries","high_value_customer.sql");
+    const query = fs.readFileSync(sqlFilePath, "utf8");
+
+    const [rows] = await bigquery.query({
+      query,
+      location: "US"
+    });
+
+    res.json({ data: rows });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      message: "Error while querying monthly product sales"
+    });
+  }
+});
+
+app.post("/segments", async (req, res) => {
+  try {
+
+    const sqlFilePath = path.join(process.cwd(), "queries","segmenting_customers.sql");
+    const query = fs.readFileSync(sqlFilePath, "utf8");
+
+    const [rows] = await bigquery.query({
+      query,
+      location: "US"
+    });
+
+    res.json({ data: rows });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      message: "Error while querying monthly product sales"
+    });
+  }
+});
+
 app.listen(3010);
+

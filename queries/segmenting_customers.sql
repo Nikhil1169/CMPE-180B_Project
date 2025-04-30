@@ -50,4 +50,5 @@ SELECT
 FROM
   user_metrics um
 CROSS JOIN
-  quartiles q;
+  quartiles q
+LIMIT 100;

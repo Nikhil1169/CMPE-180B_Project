@@ -70,7 +70,8 @@ GROUP BY
   hv.user_id,
   hv.total_spend
 ORDER BY
-  hv.total_spend DESC;
+  hv.total_spend DESC
+LIMIT 100;
 
 
   

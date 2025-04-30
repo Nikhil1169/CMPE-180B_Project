@@ -1,5 +1,5 @@
 SELECT
-  FORMAT_DATE('%Y-%m', DATE(oi.created_at)) AS order_month,
+  FORMAT_DATE('%Y-Q%Q', DATE(oi.created_at)) AS order_quarter,
   p.name AS product_name,
   COUNT(oi.id) AS total_quantity_sold,
   SUM(oi.sale_price) AS total_sales
@@ -12,7 +12,7 @@ ON
 WHERE
   oi.status = 'Complete'
 GROUP BY
-  order_month, product_name
+  order_quarter, product_name
 ORDER BY
-  order_month, total_sales DESC
-LIMIT 100;
+  order_quarter, total_sales DESC
+
